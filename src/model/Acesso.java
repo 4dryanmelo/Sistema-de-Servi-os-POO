@@ -1,3 +1,5 @@
+package model;
+
 public final class Acesso {
     private final String login;
     private final String senha;
