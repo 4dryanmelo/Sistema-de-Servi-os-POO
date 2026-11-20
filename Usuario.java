@@ -1,5 +1,3 @@
-package elo;
-
 public abstract class Usuario implements Autenticavel {
     private String nome;
     private final Acesso acesso;
