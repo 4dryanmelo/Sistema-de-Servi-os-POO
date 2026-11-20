@@ -1,4 +1,4 @@
-package dao; // ou package dao; se você criar a pasta dao
+package dao
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
