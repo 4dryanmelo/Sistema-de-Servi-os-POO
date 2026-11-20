@@ -13,7 +13,7 @@ public final class Acesso {
         this.senha = senha;
     }
 
-    String getLogin() { return login; }
+    public String getLogin() { return login; }
 
     public boolean valido() {
         return login != null && !login.trim().isEmpty()
