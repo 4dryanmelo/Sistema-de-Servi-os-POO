@@ -26,9 +26,8 @@ public class UsuarioDAO {
     }
 
     private boolean loginJaCadastrado(List<Usuario> lista, String login) {
-        if (login == null) return false;
         for (Usuario u : lista) {
-            if (u.getLogin() != null && u.getLogin().equalsIgnoreCase(login.trim())) {
+            if ( u.getLogin().equalsIgnoreCase(login.trim())) {
                 return true;
             }
         }
@@ -88,7 +87,7 @@ public class UsuarioDAO {
         List<Usuario> lista = lerJson();
 
         for (Usuario u : lista) {
-            boolean loginCerto = u.getLogin() != null && u.getLogin().equalsIgnoreCase(login.trim());
+            boolean loginCerto = u.getLogin().equalsIgnoreCase(login.trim());
             boolean senhaCerta = u.autenticar(senha);
 
             if (loginCerto && senhaCerta) {
