@@ -1,5 +1,3 @@
-package elo;
-
 public final class Servico {
     private final int id;
     private final Prestador prestador;
