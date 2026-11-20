@@ -1,3 +1,5 @@
+package model;
+
 public final class Pedido {
     private final int id;
     private final Cliente cliente;
