@@ -1,3 +1,5 @@
+package model;
+
 public final class Prestador extends Usuario {
     public Prestador(String nome, String login, String senha) {
         super(nome, login, senha);

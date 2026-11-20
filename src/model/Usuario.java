@@ -1,3 +1,5 @@
+package model;
+
 public abstract class Usuario implements Autenticavel {
     private String nome;
     private final Acesso acesso;
@@ -9,7 +11,8 @@ public abstract class Usuario implements Autenticavel {
 
     public String getNome() { return nome; }
     public String getLogin() { return acesso.getLogin(); }
-    public boolean acessoValido() { return acesso != null && acesso.valido(); }
+    //tirei o método acessoValido pq o acesso nunca vai ser null pois tem o construtor inicializando acesso e o .valido() tbm n retorna false
+    //public boolean acessoValido() { return acesso != null && acesso.valido(); }
     public abstract String getPerfil();
 
     public final void renomear(String nome) {
