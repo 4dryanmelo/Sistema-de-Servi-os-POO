@@ -85,7 +85,6 @@ public class UsuarioDAO {
         return null;
     }
 
-    // O campo "tipo" identifica a classe concreta ao abrir o arquivo novamente.
     private static class UsuarioAdapter implements JsonSerializer<Usuario>, JsonDeserializer<Usuario> {
         @Override
         public JsonElement serialize(Usuario src, Type typeOfSrc, JsonSerializationContext context) {
