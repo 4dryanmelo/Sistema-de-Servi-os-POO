@@ -10,9 +10,9 @@ public final class Servico {
 		if (id < 1 || prestador == null) {
 			throw new IllegalArgumentException("O serviço precisa de um ID positivo e de um prestador.");
 		}
-		//não sei se é uma boa deixar o usuario digitar o próprio id, talvez a gente deveria selecionar o id automaticamente com base no json dos servicos(não foi criado ainda)
+		
 		this.id = id;
-		//talvez deveriamos deixar um array com categorias fixas de trabalho para o prestador escolher
+		
 		this.prestador = prestador;
 		
 		editar(nome, categoria);
