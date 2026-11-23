@@ -19,9 +19,9 @@ public final class Acesso {
 		return login;
 	}
 
-//	public boolean valido() {
-//		return login != null && !login.trim().isEmpty() && senha != null && !senha.trim().isEmpty();
-//	}nunca retorna false pq o construtor ja bloqueia login e senha null
+	public boolean valido() {
+		return login != null && !login.trim().isEmpty() && senha != null && !senha.trim().isEmpty();
+	}
 
 	public boolean confere(String tentativa) {
 		return senha.equals(tentativa);
