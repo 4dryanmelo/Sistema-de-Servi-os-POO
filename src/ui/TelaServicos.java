@@ -83,6 +83,13 @@ public class TelaServicos extends JFrame {
                 if (texto != null) pedido.editarRecado(texto);
                 lista.repaint();
             }));
+            acoes.add(botao("Apagar pedido", () -> {
+            	Pedido pedido = pedidoSelecionado(lista);
+            	if(confirmou("Apagar pedido", new Object[] {"Deseja remover o pedido"+pedido.getId() + "?"})) {
+            		pedidos.remove(pedido);
+            		mostrarPedidos(usuario);
+            	}
+            }));
         } else {
             Prestador prestador = (Prestador) usuario;
             acoes.add(botao("Oferecer serviço", () -> formularioServico(prestador, null)));
@@ -171,4 +178,3 @@ public class TelaServicos extends JFrame {
         SwingUtilities.invokeLater(() -> new TelaServicos().setVisible(true));
     }
 }
-
