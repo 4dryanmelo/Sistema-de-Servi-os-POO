@@ -1,15 +1,19 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public final class Pedido {
     private final int id;
     private final Cliente cliente;
     private final Servico servico;
     private String recado;
+    private String data;
     private boolean concluido;
 
     public Pedido(int id, Cliente cliente, Servico servico, String recado) {
         if (id < 1 || cliente == null || servico == null) {
-            throw new IllegalArgumentException("O pedido precisa de um ID positivo, de um cliente e de um serviço.");
+            throw new IllegalArgumentException("O pedido precisa de um ID positivo, de um cliente, de um serviço e agendar para uma data após a atual.");
         }
         this.id = id;
         this.cliente = cliente;
@@ -21,6 +25,7 @@ public final class Pedido {
     public Cliente getCliente() { return cliente; }
     public Servico getServico() { return servico; }
     public String getRecado() { return recado; }
+    public String getData() { return data; }
     public boolean isConcluido() { return concluido; }
 
     public void editarRecado(String recado) {
@@ -40,9 +45,11 @@ public final class Pedido {
         concluido = true;
     }
 
+    
+
     @Override
     public String toString() {
         String estado = concluido ? "Concluído" : "Pendente";
-        return "#" + id + " " + servico.getNome() + " | " + cliente.getNome() + " | " + recado + " | " + estado;
+        return "#" + id + " " + servico.getNome() + " | " + cliente.getNome() + " | " + recado + " | " + data + " | " + estado;
     }
 }
