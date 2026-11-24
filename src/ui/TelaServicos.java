@@ -10,6 +10,8 @@ import model.Usuario;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -142,14 +144,15 @@ public class TelaServicos extends JFrame {
     }
 
     private void solicitar(Cliente cliente) {
-        if (servicos.isEmpty()) throw new IllegalStateException("Ainda não há serviços disponíveis.");
-        JComboBox<Servico> opcoes = new JComboBox<>(servicos.toArray(new Servico[0]));
-        JTextField recado = new JTextField();
-        if (!confirmou("Solicitar serviço", new Object[]{"Serviço", opcoes, "Recado", recado})) return;
-        Servico servico = (Servico) opcoes.getSelectedItem();
-        pedidos.add(cliente.solicitarServico(pedidos.size() + 1, servico, recado.getText()));
-        mostrarPedidos(cliente);
-    }
+    if (servicos.isEmpty()) throw new IllegalStateException("Ainda não há serviços disponíveis.");
+    JComboBox<Servico> opcoes = new JComboBox<>(servicos.toArray(new Servico[0]));
+    JTextField recado = new JTextField();
+    JTextField data = new JTextField(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    if (!confirmou("Solicitar serviço", new Object[]{"Serviço", opcoes, "Recado", recado, "Data (dd/MM/aaaa)", data})) return;
+    Servico servico = (Servico) opcoes.getSelectedItem();
+    pedidos.add(cliente.solicitarServico(pedidos.size() + 1, servico, recado.getText(), data.getText()));
+    mostrarPedidos(cliente);
+}
 
     private boolean confirmou(String titulo, Object[] campos) {
         return JOptionPane.showConfirmDialog(this, campos, titulo, JOptionPane.OK_CANCEL_OPTION,
