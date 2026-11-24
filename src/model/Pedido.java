@@ -15,7 +15,7 @@ public final class Pedido {
 
     public Pedido(int id, Cliente cliente, Servico servico, String recado, String data) {
         if (id < 1 || cliente == null || servico == null) {
-            throw new IllegalArgumentException("O pedido precisa de um ID positivo, de um cliente, de um serviço e agendar uma data correta para o serviço.");
+            throw new IllegalArgumentException("O pedido precisa de um ID positivo, de um cliente e de um serviço.");
         }
         this.id = id;
         this.cliente = cliente;
