@@ -1,6 +1,7 @@
 package ui;
 
-import dao.UsuarioDAO; 
+import dao.UsuarioDAO;
+import dao.ServicoDAO;
 import model.Cliente;
 import model.Pedido;
 import model.Prestador;
@@ -11,13 +12,14 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
 public class TelaServicos extends JFrame {
     private final UsuarioDAO dao = new UsuarioDAO();
-    private final ArrayList<Servico> servicos = new ArrayList<>();
+    private final ServicoDAO sdao = new ServicoDAO();
     private final ArrayList<Pedido> pedidos = new ArrayList<>();
 
     public TelaServicos() {
@@ -126,15 +128,26 @@ public class TelaServicos extends JFrame {
         String titulo = atual == null ? "Oferecer serviço" : "Editar serviço";
         if (!confirmou(titulo, new Object[]{"Nome do serviço", nome, "Categoria", categoria})) return;
         String tipo = (String) categoria.getSelectedItem();
-        if (atual == null) servicos.add(prestador.oferecerServico(servicos.size() + 1, nome.getText(), tipo));
-        else atual.editar(nome.getText(), tipo);
-        mostrarPedidos(prestador);
-        JOptionPane.showMessageDialog(this, "Serviço salvo.");
+        if (atual == null) {
+            int novoId = sdao.lerJson().size() + 1;
+            Servico novo = prestador.oferecerServico(novoId, nome.getText(), tipo);
+
+            if (sdao.cadastrar(novo)) {
+                mostrarPedidos(prestador);
+                JOptionPane.showMessageDialog(this, "Serviço salvo.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Este serviço já está cadastrado.");
+            }
+        } else {
+            atual.editar(nome.getText(), tipo);
+            mostrarPedidos(prestador);
+            JOptionPane.showMessageDialog(this, "Serviço salvo.");
+        }
     }
 
     private void escolherParaEditar(Prestador prestador) {
         ArrayList<Servico> meus = new ArrayList<>();
-        for (Servico servico : servicos) {
+        for (Servico servico : sdao.lerJson()) {
             if (servico.getPrestador().getLogin().equals(prestador.getLogin())) meus.add(servico);
         }
         if (meus.isEmpty()) throw new IllegalStateException("Você ainda não ofereceu serviços.");
@@ -144,6 +157,7 @@ public class TelaServicos extends JFrame {
     }
 
     private void solicitar(Cliente cliente) {
+    	List<Servico> servicos = sdao.lerJson();
     	if (servicos.isEmpty()) throw new IllegalStateException("Ainda não há serviços disponíveis.");
         JComboBox<Servico> opcoes = new JComboBox<>(servicos.toArray(new Servico[0]));
         JTextField recado = new JTextField();
